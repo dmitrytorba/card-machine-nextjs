@@ -1,0 +1,15 @@
+{
+  "name": "card-machine-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "postgraphile": "^4.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "server": "postgraphile -c 'postgres:///habits'"
+  },
+  "author": "",
+  "license": "ISC"
+}
