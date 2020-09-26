@@ -8,7 +8,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "server": "postgraphile -c 'postgres:///habits'"
+    "server": "postgraphile -c 'postgres:///habits' --port 6000"
   },
   "author": "",
   "license": "ISC"
