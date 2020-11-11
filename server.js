@@ -16,4 +16,5 @@ app.use(
   )
 );
 
+console.log('Starting GraphQL: http://localhost:3000/graphiql')
 app.listen(process.env.PORT || 3000);

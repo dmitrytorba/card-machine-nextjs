@@ -9,7 +9,6 @@
   },
   "devDependencies": {},
   "scripts": {
-    "server": "postgraphile -c 'postgres://habits:$HABIT_PSQL_PASS@localhost/habits' --port 6000"
   },
   "author": "",
   "license": "ISC"
