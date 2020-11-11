@@ -2,13 +2,14 @@
   "name": "card-machine-web",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
+    "express": "^4.17.1",
     "postgraphile": "^4.9.0"
   },
   "devDependencies": {},
   "scripts": {
-    "server": "postgraphile -c 'postgres:///habits' --port 6000"
+    "server": "postgraphile -c 'postgres://habits:$HABIT_PSQL_PASS@localhost/habits' --port 6000"
   },
   "author": "",
   "license": "ISC"
