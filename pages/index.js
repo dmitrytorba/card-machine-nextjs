@@ -3,18 +3,28 @@ import Head from 'next/head'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+  uri: 'http://localhost:3001/graphql',
   cache: new InMemoryCache()
 });
 
 client
   .query({
     query: gql`
-      query GetRates {
-        rates(currency: "USD") {
-          currency
+    query MyQuery {
+      query {
+        allHabits {
+          edges {
+            node {
+              id
+              name
+              day
+              board
+              repeat
+            }
+          }
         }
       }
+    }
     `
   })
   .then(result => console.log(result));
