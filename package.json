@@ -4,13 +4,9 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "@apollo/client": "^3.2.5",
-    "express": "^4.17.1",
-    "graphql": "^15.4.0",
-    "next": "10.0.1",
-    "postgraphile": "^4.9.0",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "next": "12.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {},
   "scripts": {
