@@ -1,4 +1,5 @@
 import Nav from '../components/nav';
+import { getHabits } from '../services/pg.service';
 
 type Habit = {
   label: string;
@@ -20,7 +21,7 @@ export default function Habits({ habits }) {
 
 export async function getServerSideProps(context) {
   const habits = [{ label: 'one' }, { label: 'two' }];
-
+  getHabits();
   return {
     props: {
       habits,
