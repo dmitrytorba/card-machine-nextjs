@@ -1,13 +1,35 @@
 import Nav from '../components/nav';
 import { getHabits } from '../services/pg.service';
+import styled from 'styled-components';
+import { useState } from 'react';
 
 type Habit = {
-  label: string;
+  id: number;
+  name: string;
+  repeat: string;
+  board: string;
+  enabled: boolean;
 };
 
 export default function Habits({ habits }) {
-  const renderedHabits = habits.map((habit: Habit) => {
-    return <h1 className="title">{habit.label}</h1>;
+  const renderedHabits = habits.map((habit: Habit, index) => {
+    const [editMode, setEditMode] = useState(false);
+
+    const lastItem = habits[index - 1];
+
+    return (
+      <HabitSummary key={`habit-${index}`} onClick={() => setEditMode(!editMode)}>
+        <div>{habit.name}</div>
+        <div>{habit.repeat}</div>
+        {editMode ? (
+          <>
+            <div>{habit.enabled ? '✔️' : '❌'}</div>
+            <div>{habit.id}</div>
+            <div>{habit.board}</div>
+          </>
+        ) : null}
+      </HabitSummary>
+    );
   });
   return (
     <>
@@ -19,9 +41,22 @@ export default function Habits({ habits }) {
   );
 }
 
+const HabitSummary = styled.li`
+  padding: 20px;
+  list-style: none;
+  margin: 5px;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 100%;
+  cursor: pointer;
+  justify-content: space-between;
+  display: flex;
+`;
+
 export async function getServerSideProps(context) {
-  const habits = [{ label: 'one' }, { label: 'two' }];
-  getHabits();
+  const habits = await getHabits();
+
+  habits.sort((a, b) => a.repeat - b.repeat);
   return {
     props: {
       habits,

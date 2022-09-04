@@ -7,8 +7,8 @@ const pool = new Pool({
 
 export async function getHabits() {
   const res = await pool.query('SELECT id, name, repeat, board, enabled FROM habits');
-
-  console.log(res.rows);
-  // TODO: figure this out
-  // pool.end();
+  return res.rows;
 }
+
+// TODO: figure this out
+// pool.end();
