@@ -1,6 +1,23 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import Head from 'next/head';
 
+const Nav = ({ pageName }: { pageName: string }) => {
+  return (
+    <>
+      <Head>
+        <title>{pageName}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <GlobalStyle />
+      <Name>
+        <h4>{pageName}</h4>
+      </Name>
+    </>
+  );
+};
+
+export default Nav;
+
 const GlobalStyle = createGlobalStyle`
   html,
   body {
@@ -131,20 +148,3 @@ const GlobalStyle = createGlobalStyle`
 const Name = styled.div`
   padding: 0 30px;
 `;
-
-const Nav = ({ pageName }) => {
-  return (
-    <>
-      <Head>
-        <title>{pageName}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <GlobalStyle />
-      <Name>
-        <h4>{pageName}</h4>
-      </Name>
-    </>
-  );
-};
-
-export default Nav;

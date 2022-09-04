@@ -3,42 +3,53 @@ import { getHabits } from '../services/pg.service';
 import styled from 'styled-components';
 import { useState } from 'react';
 
-type Habit = {
+export type Habit = {
   id: number;
   name: string;
-  repeat: string;
+  repeat: number;
   board: string;
   enabled: boolean;
 };
 
-export default function Habits({ habits }) {
-  const renderedHabits = habits.map((habit: Habit, index) => {
-    const [editMode, setEditMode] = useState(false);
+export default function Habits({ habits }: { habits: Habit[] }) {
+  const [editMode, setEditMode] = useState(false);
 
-    const lastItem = habits[index - 1];
-
-    return (
-      <HabitSummary key={`habit-${index}`} onClick={() => setEditMode(!editMode)}>
-        <div>{habit.name}</div>
-        <div>{habit.repeat}</div>
-        {editMode ? (
-          <>
-            <div>{habit.enabled ? '✔️' : '❌'}</div>
-            <div>{habit.id}</div>
-            <div>{habit.board}</div>
-          </>
-        ) : null}
-      </HabitSummary>
-    );
-  });
   return (
     <>
       <Nav pageName="Habits" />
       <div className="container">
-        <main>{renderedHabits}</main>
+        <main>
+          {habits?.map((habit: Habit, index) => {
+            return (
+              <HabitSummary key={`habit-${index}`} onClick={() => setEditMode(!editMode)}>
+                <div>{habit?.name}</div>
+                <div>{habit?.repeat}</div>
+                {editMode ? (
+                  <>
+                    <div>{habit?.enabled ? '✔️' : '❌'}</div>
+                    <div>{habit?.id}</div>
+                    <div>{habit?.board}</div>
+                  </>
+                ) : null}
+              </HabitSummary>
+            );
+          })}
+        </main>
       </div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const habits: Habit[] = await getHabits();
+
+  habits.sort((a: Habit, b: Habit) => a?.repeat - b?.repeat);
+
+  return {
+    props: {
+      habits,
+    },
+  };
 }
 
 const HabitSummary = styled.li`
@@ -52,14 +63,3 @@ const HabitSummary = styled.li`
   justify-content: space-between;
   display: flex;
 `;
-
-export async function getServerSideProps(context) {
-  const habits = await getHabits();
-
-  habits.sort((a, b) => a.repeat - b.repeat);
-  return {
-    props: {
-      habits,
-    },
-  };
-}
