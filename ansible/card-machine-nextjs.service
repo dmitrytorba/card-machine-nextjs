@@ -1,0 +1,14 @@
+[Unit]
+Description = Card Machine Nextjs Service
+After = network.target
+
+[Service]
+User = cm
+Group = cm
+WorkingDirectory = /home/cm/card-machine-nextjs
+ExecStart = /home/cm/.nvm/nvm-exec npm start
+EnvironmentFile = /home/cm/card-machine-nextjs/.env
+Restart = always
+
+[Install]
+WantedBy = multi-user.target
