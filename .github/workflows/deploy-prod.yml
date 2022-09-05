@@ -20,6 +20,6 @@ jobs:
           cd /home/cm/card-machine-nextjs
           git checkout master
           git pull origin master
-          npm ci
-          npm run build
+          /home/cm/.nvm/nvm-exec npm ci
+          /home/cm/.nvm/nvm-exec npm run build
           sudo service card-machine-nextjs restart
