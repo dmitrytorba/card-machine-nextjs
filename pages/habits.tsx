@@ -56,7 +56,15 @@ const HabitSummary = styled.li`
 export async function getServerSideProps(context) {
   const habits = await getHabits();
 
-  habits.sort((a, b) => a.repeat - b.repeat);
+  habits.sort((a, b) => {
+    if (!a.enabled) {
+      return 1;
+    }
+    if (!b.enabled) {
+      return -1;
+    }
+    return a.repeat - b.repeat;
+  });
   return {
     props: {
       habits,
