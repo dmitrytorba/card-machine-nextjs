@@ -2,6 +2,7 @@ import Nav from '../components/nav';
 import { getHabits } from '../services/pg.service';
 import styled from 'styled-components';
 import { useState } from 'react';
+import HabitEditor from '../components/habits/HabitEditor';
 
 type Habit = {
   id: number;
@@ -10,36 +11,6 @@ type Habit = {
   board: string;
   enabled: boolean;
 };
-
-export default function Habits({ habits }) {
-  const renderedHabits = habits.map((habit: Habit, index) => {
-    const [editMode, setEditMode] = useState(false);
-
-    const lastItem = habits[index - 1];
-
-    return (
-      <HabitSummary key={`habit-${index}`} onClick={() => setEditMode(!editMode)}>
-        <div>{habit.name}</div>
-        <div>{habit.repeat}</div>
-        {editMode ? (
-          <>
-            <div>{habit.enabled ? '✔️' : '❌'}</div>
-            <div>{habit.id}</div>
-            <div>{habit.board}</div>
-          </>
-        ) : null}
-      </HabitSummary>
-    );
-  });
-  return (
-    <>
-      <Nav pageName="Habits" />
-      <div className="container">
-        <main>{renderedHabits}</main>
-      </div>
-    </>
-  );
-}
 
 const HabitSummary = styled.li`
   padding: 20px;
@@ -52,6 +23,40 @@ const HabitSummary = styled.li`
   justify-content: space-between;
   display: flex;
 `;
+
+const EditHabit = styled(HabitSummary)`
+  cursor: default;
+  flex-direction: column;
+  background: white;
+  color: black;
+`;
+
+export default function Habits({ habits }) {
+  const renderedHabits = habits.map((habit: Habit, index) => {
+    const [editMode, setEditMode] = useState(false);
+
+    const lastItem = habits[index - 1];
+
+    return editMode ? (
+      <EditHabit>
+        <HabitEditor habit={habit} />
+      </EditHabit>
+    ) : (
+      <HabitSummary key={`habit-${index}`} onClick={() => setEditMode(!editMode)}>
+        <div>{habit.name}</div>
+        <div>{habit.repeat}</div>
+      </HabitSummary>
+    );
+  });
+  return (
+    <>
+      <Nav pageName="Habits" />
+      <div className="container">
+        <main>{renderedHabits}</main>
+      </div>
+    </>
+  );
+}
 
 export async function getServerSideProps(context) {
   const habits = await getHabits();
