@@ -16,23 +16,27 @@ export default function HabitEditor({ habit }) {
   const [name, setName] = useState(habit.name);
   const [enabled, setEnabled] = useState(habit.enabled);
   const [board, setBoard] = useState(habit.board);
+  const [period, setPeriod] = useState('days');
+  const [frequency, setFrequency] = useState(habit.repeat);
 
   const saveHabit = () => {
     console.log('hahaha');
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
+    <Stack direction="column" spacing={1} alignItems="strech">
       <div>Id: {habit.id}</div>
-      <div>Repeat: {habit.repeat}</div>
       <Stack direction="row" spacing={1} alignItems="center">
+        <FormControl fullWidth>
+          <TextField
+            label="Habit Name"
+            fullWidth
+            value={name}
+            onChange={(event) => {
+              setName(event.target.value);
+            }}
+          />
+        </FormControl>
         <Typography>Off</Typography>
         <Switch
           label="Enabled"
@@ -44,17 +48,6 @@ export default function HabitEditor({ habit }) {
         />
         <Typography>On</Typography>
       </Stack>
-
-      <FormControl fullWidth>
-        <TextField
-          label="Habit Name"
-          fullWidth
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-        />
-      </FormControl>
       <FormControl fullWidth>
         <InputLabel id="board-label">Board</InputLabel>
         <Select
@@ -69,24 +62,32 @@ export default function HabitEditor({ habit }) {
           <MenuItem value={'House'}>House</MenuItem>
         </Select>
       </FormControl>
-      <FormControl>
-        <InputLabel id="board-label">Repeat Every</InputLabel>
+      <Stack direction="row" spacing={1} alignItems="center">
+        <TextField
+          id="outlined-number"
+          label="Repeat Every"
+          type="number"
+          value={frequency}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
         <Select
           labelId="board-label"
-          value={board}
+          value={period}
           label="Board"
           onChange={(event) => {
-            setBoard(event.target.value as string);
+            setPeriod(event.target.value as string);
           }}
         >
           <MenuItem value={'days'}>days</MenuItem>
           <MenuItem value={'weeks'}>weeks</MenuItem>
           <MenuItem value={'months'}>months</MenuItem>
         </Select>
-      </FormControl>
+      </Stack>
       <Button variant="contained" onClick={saveHabit}>
         Save
       </Button>
-    </Box>
+    </Stack>
   );
 }
