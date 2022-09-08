@@ -32,19 +32,17 @@ export default function HabitEditor({ habit }) {
             label="Habit Name"
             fullWidth
             value={name}
-            onChange={(event) => {
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setName(event.target.value);
             }}
           />
         </FormControl>
         <Typography>Off</Typography>
         <Switch
-          label="Enabled"
           checked={enabled}
-          onChange={(event) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setEnabled(event.target.checked);
           }}
-          inputProps={{ 'aria-label': 'controlled' }}
         />
         <Typography>On</Typography>
       </Stack>
@@ -54,7 +52,7 @@ export default function HabitEditor({ habit }) {
           labelId="board-label"
           value={board}
           label="Board"
-          onChange={(event) => {
+          onChange={(event: SelectChangeEvent) => {
             setBoard(event.target.value as string);
           }}
         >
@@ -76,7 +74,7 @@ export default function HabitEditor({ habit }) {
           labelId="board-label"
           value={period}
           label="Board"
-          onChange={(event) => {
+          onChange={(event: SelectChangeEvent) => {
             setPeriod(event.target.value as string);
           }}
         >
