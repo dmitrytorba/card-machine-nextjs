@@ -20,7 +20,13 @@ export default function HabitEditor({ habit }) {
   const [frequency, setFrequency] = useState(habit.repeat);
 
   const saveHabit = async () => {
-    const resp = await fetch('/api/habit/save', { method: 'POST' });
+    const body = JSON.stringify({
+      name,
+      enabled,
+      board,
+      frequency,
+    });
+    const resp = await fetch(`/api/habit/${habit.id}`, { method: 'POST', body });
 
     if (!resp.ok) {
       console.error(resp);
@@ -29,7 +35,6 @@ export default function HabitEditor({ habit }) {
 
   return (
     <Stack direction="column" spacing={1} alignItems="strech">
-      <div>Id: {habit.id}</div>
       <Stack direction="row" spacing={1} alignItems="center">
         <FormControl fullWidth>
           <TextField
@@ -70,6 +75,9 @@ export default function HabitEditor({ habit }) {
           label="Repeat Every"
           type="number"
           value={frequency}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setFrequency(event.target.value as string);
+          }}
           InputLabelProps={{
             shrink: true,
           }}
