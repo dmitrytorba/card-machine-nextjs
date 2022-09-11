@@ -1,14 +1,15 @@
 import { Pool } from 'pg';
+import process from 'node:process';
 
-const pool = new Pool({
+export const pool = new Pool({
   host: `/run/postgresql`,
   database: 'habits',
 });
 
-export async function getHabits() {
-  const res = await pool.query('SELECT id, name, repeat, board, enabled FROM habits');
-  return res.rows;
-}
+process.on('beforeExit', (code) => {
+  pool.end();
+});
 
-// TODO: figure this out
-// pool.end();
+pool.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err);
+});

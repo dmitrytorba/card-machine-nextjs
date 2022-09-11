@@ -19,8 +19,12 @@ export default function HabitEditor({ habit }) {
   const [period, setPeriod] = useState('days');
   const [frequency, setFrequency] = useState(habit.repeat);
 
-  const saveHabit = () => {
-    console.log('hahaha');
+  const saveHabit = async () => {
+    const resp = await fetch('/api/habit/save', { method: 'POST' });
+
+    if (!resp.ok) {
+      console.error(resp);
+    }
   };
 
   return (

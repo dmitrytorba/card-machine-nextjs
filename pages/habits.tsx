@@ -1,5 +1,5 @@
 import Nav from '../components/nav';
-import { getHabits } from '../services/pg.service';
+import { getHabits } from '../services/habit.service';
 import styled from 'styled-components';
 import { useState } from 'react';
 import HabitEditor from '../components/habits/HabitEditor';
