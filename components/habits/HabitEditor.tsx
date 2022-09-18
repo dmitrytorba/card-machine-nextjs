@@ -66,6 +66,7 @@ export default function HabitEditor({ habit }) {
         >
           <MenuItem value={'TO DO'}>TO DO</MenuItem>
           <MenuItem value={'House'}>House</MenuItem>
+          <MenuItem value={'Business'}>Business</MenuItem>
         </Select>
       </FormControl>
       <Stack direction="row" spacing={1} alignItems="center">
