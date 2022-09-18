@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
@@ -65,7 +64,7 @@ export default function HabitEditor({ habit }) {
             setBoard(event.target.value as string);
           }}
         >
-          <MenuItem value={'TODO'}>TODO</MenuItem>
+          <MenuItem value={'TO DO'}>TO DO</MenuItem>
           <MenuItem value={'House'}>House</MenuItem>
         </Select>
       </FormControl>
